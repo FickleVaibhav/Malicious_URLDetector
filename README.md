@@ -1,5 +1,3 @@
-# Note:
-    I am still working on the web extension and the website , it is almost done just a bit finishing left. Here, is the code file: 
 
 # Introduction
    
