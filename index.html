@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious URL Detector
+
+        <link rel="icon" href="Protector.png" type="image/icon type">
+
+    </title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #ffffff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode .container {
+            background: #2c2c2c;
+        }
+
+        /* Header */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #222;
+            font-weight: 700;
+        }
+
+        body.dark-mode h1 {
+            color: #f1f1f1;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        body.dark-mode p {
+            color: #ccc;
+        }
+
+        /* Form */
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        body.dark-mode button {
+            background-color: #57606f;
+        }
+
+        body.dark-mode button:hover {
+            background-color: #2f3542;
+        }
+
+        /* Result */
+        .result {
+            margin-top: 1.5rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        body.dark-mode .result {
+            color: #2ed573;
+        }
+
+        /* Animation and Images */
+        .gif-container {
+            margin-top: 2rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Dark Mode Slider */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 17px;
+            width: 17px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #3498db;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        body.dark-mode footer {
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <span>Dark Mode</span>
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="container">
+        <h1>Malicious URL Detector</h1>
+        <p>Enter a URL below to check if it is safe or malicious. Protect yourself from phishing attacks!</p>
+        <form method="POST">
+            <label for="url">Enter a URL:</label>
+            <input type="text" id="url" name="url" placeholder="https://example.com" required>
+            <button type="submit">Check URL</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+
+        <div class="gif-container">
+            <p>People like this are scamming/phishing people and taking millions of money. Check any suspicious URL before clicking on it.</p>
+            <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmd1ZDB0bjR2Yjl5cnZhcDU2YjlhMDh6dXB1bWVibGx0MzNtZWthYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YQitE4YNQNahy/giphy-downsized-large.gif" alt="Phishing Protection Animation">
+        </div>
+    </div>
+
+    <footer>
+        Made with ❤️ by <strong>Vaibhav Mohanty</strong> for OlympAI Hackathon
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('mode', isDarkMode ? 'dark' : 'light');
+            document.getElementById('darkModeToggle').checked = isDarkMode;
+        }
+
+        window.onload = function () {
+            const mode = localStorage.getItem('mode');
+            if (mode === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').checked = true;
+            }
+        };
+    </script>
+</body>
+</html>
